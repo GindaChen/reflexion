@@ -1,0 +1,43 @@
+
+CoT with Reflexion (baseline - every incorrect answer will get rerun)
+- Model: Llama3-8B (8k context length)
+- SGLang
+Finished Trial 1, Correct: 63, Incorrect: 37
+Finished Trial 2, Correct: 70, Incorrect: 30
+Finished Trial 3, Correct: 71, Incorrect: 29
+Finished Trial 4, Correct: 72, Incorrect: 28
+Finished Trial 5, Correct: 73, Incorrect: 27
+Finished Trial 6, Correct: 73, Incorrect: 27
+Finished Trial 7, Correct: 75, Incorrect: 25
+Finished Trial 8, Correct: 76, Incorrect: 24
+Finished Trial 9, Correct: 76, Incorrect: 24
+Finished Trial 10, Correct: 76, Incorrect: 24
+Finished Trial 11, Correct: 76, Incorrect: 24
+Finished Trial 12, Correct: 76, Incorrect: 24
+Finished Trial 13, Correct: 76, Incorrect: 24
+Finished Trial 14, Correct: 76, Incorrect: 24
+Finished Trial 15, Correct: 76, Incorrect: 24
+Finished Trial 16, Correct: 77, Incorrect: 23
+
+
+ReAct with Reflextion (baseline - every incorrect answer will get rerun)
+- Model: Llama3-8B (8k context length)
+- SGLang
+Finished Trial 1, Correct: 32, Incorrect: 38, Halted: 30
+Finished Trial 2, Correct: 36, Incorrect: 36, Halted: 28
+Finished Trial 3, Correct: 38, Incorrect: 37, Halted: 25
+Finished Trial 4, Correct: 41, Incorrect: 37, Halted: 22
+Finished Trial 5, Correct: 42, Incorrect: 30, Halted: 28
+Finished Trial 6, Correct: 43, Incorrect: 33, Halted: 24
+Finished Trial 7, Correct: 43, Incorrect: 26, Halted: 31
+Finished Trial 8, Correct: 43, Incorrect: 15, Halted: 42
+Finished Trial 9, Correct: 43, Incorrect: 7, Halted: 50
+Finished Trial 10, Correct: 43, Incorrect: 3, Halted: 54
+Finished Trial 11, Correct: 45, Incorrect: 1, Halted: 54
+Finished Trial 12, Correct: 45, Incorrect: 0, Halted: 55
+Finished Trial 13, Correct: 45, Incorrect: 0, Halted: 55
+Finished Trial 14, Correct: 45, Incorrect: 0, Halted: 55
+Finished Trial 15, Correct: 45, Incorrect: 0, Halted: 55
+Finished Trial 16, Correct: 45, Incorrect: 0, Halted: 55
+
+

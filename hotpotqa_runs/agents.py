@@ -18,7 +18,11 @@ from llm import AnyOpenAILLM
 from prompts import reflect_prompt, react_agent_prompt, react_reflect_agent_prompt, REFLECTION_HEADER, LAST_TRIAL_HEADER, REFLECTION_AFTER_LAST_TRIAL_HEADER
 from prompts import cot_agent_prompt, cot_reflect_agent_prompt, cot_reflect_prompt, COT_INSTRUCTION, COT_REFLECT_INSTRUCTION
 from fewshots import WEBTHINK_SIMPLE6, REFLECTIONS, COT, COT_REFLECT
+import pathlib
+root = pathlib.Path(__file__).parent / "root"
 
+# class AgentLogger():
+#     pass
 
 class ReflexionStrategy(Enum):
     """
@@ -164,7 +168,7 @@ class ReactAgent:
                                             max_tokens=100,
                                             model_name="gpt-3.5-turbo",
                                             model_kwargs={"stop": "\n"},
-                                            openai_api_key=os.environ['OPENAI_API_KEY']),
+                                            openai_api_key=os.environ['OPENAI_API_KEY'],),
                  ) -> None:
         
         self.question = question
@@ -180,6 +184,16 @@ class ReactAgent:
         self.enc = tiktoken.encoding_for_model("text-davinci-003")
 
         self.__reset_agent()
+
+
+    def __getstate__(self):
+        """Support pickle dump by removing unpicklable attributes"""
+        state = self.__dict__.copy()
+        # Remove unpicklable attributes
+        del state['docstore']
+        del state['llm'] 
+        del state['enc']
+        return state
 
     def run(self, reset = True) -> None:
         if reset:
@@ -251,6 +265,8 @@ class ReactAgent:
 
     def is_halted(self) -> bool:
         return ((self.step_n > self.max_steps) or (len(self.enc.encode(self._build_agent_prompt())) > 3896)) and not self.finished
+        # Long context:
+        # return (self.step_n > self.max_steps) or len(self.enc.encode(self.scratchpad)) > 120000 and not self.finished
 
     def __reset_agent(self) -> None:
         self.step_n = 1
@@ -334,7 +350,7 @@ class ReactReflectAgent(ReactAgent):
 gpt2_enc = tiktoken.encoding_for_model("text-davinci-003")
 
 def parse_action(string):
-    pattern = r'^(\w+)\[(.+)\]$'
+    pattern = r'^(\w+)\[(.+)\]'
     match = re.match(pattern, string)
     
     if match:
@@ -343,7 +359,9 @@ def parse_action(string):
         return action_type, argument
     
     else:
-        return None
+        print(f"> parse_action to none result: {string} ")
+        return 'Finish', f'ParseError({string})'
+        # return None
 
 def format_step(step: str) -> str:
     return step.strip('\n').strip().replace('\n', '')

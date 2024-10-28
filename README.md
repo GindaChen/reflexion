@@ -1,3 +1,21 @@
+# Reflexion (updated)
+
+Modified version to run on vLLM / SGLang
+
+## Instruction
+
+Run vLLM / SGLang using Llama3-8B
+```
+python -m sglang.launch_server --model-path meta-llama/Meta-Llama-3-8B-Instruct --port 30000 --tensor-parallel-size 2
+
+vllm serve meta-llama/Meta-Llama-3-8B-Instruct --tensor-parallel-size 2 --served-model-name default --enable-prefix-caching  --enable-chunked-prefill --port 30000
+```
+
+Test notebook in `hotpotqa_runs/notebooks/ReactQA.ipynb` see if it runs.
+
+
+-----
+
 # [NeurIPS 2023] Reflexion: Language Agents with Verbal Reinforcement Learning
 
 This repo holds the code, demos, and log files for [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366) by Noah Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao. 
@@ -56,17 +74,20 @@ Each notebook allows you to specify the reflexion strategy to be used by the age
 ### To Run: decision-making (AlfWorld)
 Clone this repo and move to the AlfWorld directory
 ```bash
-git clone https://github.com/noahshinn/reflexion && cd ./alfworld_runs
+git clone https://github.com/noahshinn/reflexion && cd reflexion/alfworld_runs
 ```
 
+
+
 Specify the run parameters in `./run_reflexion.sh`.
-`num_trials`: number of iterative learning steps
-`num_envs`: number of task-environment pairs per trial
-`run_name`: the name for this run
+
+- `num_trials`: number of iterative learning steps
+- `num_envs`: number of task-environment pairs per trial
+- `run_name`: the name for this run
 `use_memory`: use persisting memory to store self-reflections (turn off to run a baseline run)
-`is_resume`: use logging directory to resume a previous run
-`resume_dir`: the logging directory from which to resume the previous run
-`start_trial_num`: if resume run, then the trial number of which to start
+- `is_resume`: use logging directory to resume a previous run
+- `resume_dir`: the logging directory from which to resume the previous run
+- `start_trial_num`: if resume run, then the trial number of which to start
 
 Run the trial
 ```bash
