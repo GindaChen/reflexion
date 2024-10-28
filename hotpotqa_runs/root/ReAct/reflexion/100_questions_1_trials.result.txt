@@ -1,0 +1,1 @@
+Finished Trial 1, Correct: 32, Incorrect: 38, Halted: 30
